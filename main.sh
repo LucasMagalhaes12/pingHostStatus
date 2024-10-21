@@ -1,8 +1,9 @@
 #/bin/bash
 
 
-# Config Values
-TIMESLEEP=10
+# CONFIG VALUES
+TIMESLEEP=10 # waiting time for the next update
+TIMEOUT=1 # timeout for ping each host
 
 
 if [ -e hosts.csv ]
@@ -12,24 +13,30 @@ then
     do
 
         clear 
-        echo " ##### PING HOSTS #####"
-        echo
 
-        while IFS=";" read -r name ip
+        while IFS=";" read -r name info 
         do
-            if ping -c 1 $ip -w 1 > /dev/null
+            if [ "$name" = "##TITLE##" ]
             then
-                echo " [#]  [ $name ] $ip"
+
+            echo
+            echo " $info"
+
+            elif ping -c 1 -w $TIMEOUT $info > /dev/null
+            then
+                echo " [#]  [ $name ] $info"
             else
-                echo " [ ]  [ $name ] $ip"  
+                echo " [ ]  [ $name ] $info"  
             fi
+
         done < hosts.csv
         sleep $TIMESLEEP
 
     done
 
 else
-	echo file not found!
-	echo creating file hosts.csv
-    touch hosts.csv
+	echo file hosts.csv not found!
+	echo creating file... 
+    echo "##TITLE##;##### PING HOSTS #####" > hosts.csv
+    echo done
 fi

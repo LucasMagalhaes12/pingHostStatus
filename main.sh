@@ -1,6 +1,5 @@
 #/bin/bash
 
-
 # CONFIG VALUES
 TIMESLEEP=10 # waiting time for the next update
 TIMEOUT=1 # timeout for ping each host
@@ -11,7 +10,6 @@ then
 
     while true
     do
-
         clear 
 
         while IFS=";" read -r name info 
@@ -28,10 +26,8 @@ then
             else
                 echo " [ ]  [ $name ] $info"  
             fi
-
         done < hosts.csv
         sleep $TIMESLEEP
-
     done
 
 else

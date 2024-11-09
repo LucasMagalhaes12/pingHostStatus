@@ -5,30 +5,60 @@ TIMESLEEP=10 # waiting time for the next update
 TIMEOUT=1 # timeout for ping each host
 
 
-if [ -e hosts.csv ]
-then
+function pingHosts {
+    clear 
+    while IFS=";" read -r name info; do
+        if [ "$name" = "##TITLE##" ]
+        then
+        echo
+        echo " $info"
 
-    while true
-    do
-        clear 
+        elif ping -c 1 -w $TIMEOUT $info > /dev/null
+        then
+            echo " [#]  [ $name ] $info"
+        else
+            echo " [ ]  [ $name ] $info"  
+        fi
+    done < hosts.csv
+}
 
-        while IFS=";" read -r name info 
-        do
-            if [ "$name" = "##TITLE##" ]
-            then
 
-            echo
-            echo " $info"
+if [ -e hosts.csv ]; then
 
-            elif ping -c 1 -w $TIMEOUT $info > /dev/null
-            then
-                echo " [#]  [ $name ] $info"
-            else
-                echo " [ ]  [ $name ] $info"  
-            fi
-        done < hosts.csv
-        sleep $TIMESLEEP
+    while getopts ":t:hl" opt; do
+        case $opt in
+        t)
+            TIMESLEEP=$OPTARG
+            while true; do
+                pingHosts
+                sleep $TIMESLEEP
+            done
+            ;;
+        l)
+            while true; do
+                pingHosts
+                sleep $TIMESLEEP
+            done
+            ;;
+        h)
+            echo "usage:"
+            echo "  main [options]"
+
+            echo 
+            echo "options:"
+            echo "  -t         set time from update screen and print loop host status"
+            echo "  -p         print hosts status"
+            echo "  -h         print help and exit"
+            ;;
+        :)
+            echo "invalid option! -$OPTARG add argumenets"
+            ;;
+        *)
+            echo "teste"
+            ;;
+        esac
     done
+
 
 else
 	echo file hosts.csv not found!

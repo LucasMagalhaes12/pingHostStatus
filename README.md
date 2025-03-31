@@ -1,20 +1,20 @@
 ### PING STATUS HOST
 
 ## EXECUTANDO:
-Para executar o script requer que ele esteja executavel.
-    # deixe o arquivo executavel com:
+Para executar o script requer que ele esteja executável.
+    # deixe o arquivo executável com:
     chmod +x main.sh
 
     # execute com:
     ./main.sh
 
-OBS.: O script vai criar um arquivo hosts.csv automaticamente, caso ele não seja localizado no diretorio.
+OBS.: O script vai criar um arquivo hosts.csv automaticamente caso ele não seja localizado no diretório.
 
 ## CONFIGURANDO AS VARIAVEIS:
-No arquivo main.sh existe duas variaveis que podem ser redefinidas, são elas o limite de tempo de resposta e o tempo de espera para atualizar o status do host. 
+No arquivo main.sh existe duas variáveis que podem ser redefinidas, que é o limite de tempo de resposta e o tempo de espera para atualizar o status do host. 
 
 ## CONFIGURANDO O ARQUIVO HOSTS.CSV:
-No arquivo hosts.csv é o arquivo que fica os nomes e ips dos hosts que seram verificados se estão online.
+"hosts.csv" é o arquivo que fica os nomes e ips dos hosts que serão verificados se estão online.
 podemos definir o nome do host e ip dessa forma: "Nome do host;IP".
 #exemplo:
 
@@ -25,7 +25,7 @@ podemos definir o nome do host e ip dessa forma: "Nome do host;IP".
     Computador 04;192.168.0.13
     TV Smart 02;192.168.0.21
 
-nesse arquivo também é possivel agrupar os hosts. Basta digitar "##TITLE##;Nome do grupo" acima dos grupo de hosts..
+nesse arquivo também é possivel agrupar os hosts. Basta digitar "##TITLE##;Nome do grupo" acima do grupo de hosts..
 exemplo:
 
     ##TITLE##;Laboratorio 01
